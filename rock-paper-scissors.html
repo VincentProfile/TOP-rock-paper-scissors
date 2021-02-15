@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>rock-paper-scissors</title>
+</head>
+<body>
+<script>
+    function computerPlay() {
+            // randomly return rock, paper or scissors
+            const availablePlays = ["rock", "paper", "scissors"];
+            let randomPlay = availablePlays[getRandomInt(0, availablePlays.length - 1)];
+            return randomPlay;
+        }
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+        function playRound(playerSelection, computerSelection) {
+            // case sensitive
+            let playerChoice = playerSelection.toLowerCase();
+            let capitalizedPlayerSelection = capitalize(playerChoice);
+            let capitalizedComputerSelection = capitalize(computerSelection);
+            let result = "";
+            if (playerChoice == "rock" && computerSelection == "scissors" ||
+                playerChoice == "paper" && computerSelection == "rock" ||
+                playerChoice == "scissors" && computerSelection == "paper") {
+                return ("You Win! " + capitalizedPlayerSelection + " beats " + capitalizedComputerSelection);
+            }
+            else if (playerChoice == "rock" && computerSelection == "paper" ||
+                playerChoice == "paper" && computerSelection == "scissors" ||
+                playerChoice == "scissors" && computerSelection == "rock") {
+                return ("You Lose! " + capitalizedComputerSelection + " beats " + capitalizedPlayerSelection);
+            }
+            else if (playerChoice == "rock" && computerSelection == "rock" ||
+                playerChoice == "paper" && computerSelection == "paper" ||
+                playerChoice == "scissors" && computerSelection == "scissors") {
+                return ("You Draw!");
+            }
+            else {
+                return ("Please enter correctly");
+            }
+        }
+        const playerSelection = window.prompt("Please choose: Rock, Paper or Scissors", "rock");
+        function game(playerSelection) {
+            let i;
+            for (i = 0; i < 5; i++) {
+                const computerSelection = computerPlay();
+                console.log(playRound(playerSelection, computerSelection));
+            }
+        }
+        game(playerSelection);
+</script>
+</body>
+
+</html>
