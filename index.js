@@ -3,8 +3,6 @@ keys.forEach((key) => {
     key.addEventListener('transitionend', removeTransition);
 })
 function removeTransition(e){
-    console.log(e.propertyName);
-    //const key = document.querySelector(`div[class="${e.target.propertyName}"]`)
     if (e.propertyName !== 'transform') return;
     e.target.classList.remove('playing');
 }
