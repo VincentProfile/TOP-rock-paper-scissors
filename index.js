@@ -1,10 +1,24 @@
+const keys = document.querySelectorAll('.key');
+keys.forEach((key) => {
+    key.addEventListener('transitionend', removeTransition);
+})
+function removeTransition(e){
+    console.log(e.propertyName);
+    //const key = document.querySelector(`div[class="${e.target.propertyName}"]`)
+    if (e.propertyName !== 'transform') return;
+    e.target.classList.remove('playing');
+}
+
 const btns = document.querySelectorAll('button');
 btns.forEach((button) => {
-    button.addEventListener('click', () => {
-        playRound(button.id, computerPlay());
-    })
+    button.addEventListener('click', playRoundAndEffect)
 })
-
+function playRoundAndEffect(e){
+    const btn = document.querySelector(`button[id="${e.target.id}"]`);
+    playRound(btn.id, computerPlay());
+    const key = btn.parentElement;
+    key.classList.add('playing');
+}
 function computerPlay() {
     // randomly return rock, paper or scissors
     const availablePlays = ["rock", "paper", "scissors"];
@@ -20,8 +34,6 @@ function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 function playRound(playerChoice, computerSelection) {
-    // case sensitive
-    console.log(playerChoice);
     let capitalizedPlayerSelection = capitalize(playerChoice);
     let capitalizedComputerSelection = capitalize(computerSelection);
     if (playerChoice == "rock" && computerSelection == "scissors" ||
